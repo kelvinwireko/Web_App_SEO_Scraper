@@ -13,6 +13,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium_recaptcha import Recaptcha_Solver
 import streamlit as st
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 
 # Get URL from HTML tags and save to a python dictionary
@@ -20,10 +21,11 @@ serp_titles_url = {"title": [], "url": []}
 
 
 def get_driver():
+    firefox_binary = FirefoxBinary('/usr/bin/firefox/')
     options = Options()
     options.headless = True
     service = Service(GeckoDriverManager().install())
-    return webdriver.Firefox(service=service, options=options)
+    return webdriver.Firefox(service=service, options=options, firefox_binary=firefox_binary)
 
 
 def page_source(keyword):
